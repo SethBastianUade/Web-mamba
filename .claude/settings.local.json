@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\Laburo\\\\Freelance\\\\Web-mamba\" log --oneline)",
+      "Bash(git *)"
+    ]
+  }
+}
