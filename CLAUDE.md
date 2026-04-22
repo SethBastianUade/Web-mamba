@@ -21,13 +21,12 @@ No install step. Edits to `index.html`, `style.css`, or `script.js` are reflecte
 Single-page site with anchor navigation. All markup in `index.html`, styles in `style.css`, interactivity in `script.js`.
 
 **Section order:**
-Header → Hero (with video) → Sponsor strip → Services (`#servicios`, with video) → Advantages (`#diferenciales`, with video) → Projects (`#trabajos`, with video) → Sponsors showcase (`#sponsors`) → Clients (`#clientes`) → Google Reviews (`#resenas`) → Final CTA (`#contacto`, with inline Calendly) → Footer + floating WhatsApp button.
+Header → Hero (with video) → Sponsor strip → Services (`#servicios`, with video) → Advantages (`#diferenciales`, with video) → Projects (`#trabajos`, with video) → Sponsors showcase (`#sponsors`) → Clients (`#clientes`) → Google Reviews (`#resenas`) → Final CTA (`#contacto`) → Footer + floating WhatsApp button.
 
 **`script.js` responsibilities:**
 - Mobile hamburger menu toggle with `aria-expanded` state
 - Header `.is-scrolled` class on scroll
 - Intersection Observer that reveals `.service-card`, `.advantage-card`, `.project-card`, `.logo-card`, `.review-card`, `.sponsor-card`, `.final-cta-box`, `.video-frame`
-- Calendly popup trigger: any element with `data-calendly` opens the Calendly modal (URL centralized in `CALENDLY_URL` const)
 - Footer year injection into `#year`
 
 **Design system (CSS custom properties in `style.css`):**
@@ -41,12 +40,18 @@ Dark theme, professional and minimalist — per client brief:
 - Button gradient: silver `linear-gradient(135deg, #f4f4f5 → #a1a1aa)` on dark
 - Font: Manrope (Google Fonts, weights 400–800)
 
-## Third-party integrations
+## SEO strategy — keyword chips
 
-**Calendly** — loaded via `assets.calendly.com/assets/external/widget.{css,js}`:
-- Popup widget: any anchor/button with `data-calendly` attribute opens the modal (handled in `script.js`)
-- Inline embed: `<div class="calendly-inline-widget" data-url="...">` in the final CTA section, auto-initialized by Calendly's script
-- **Placeholder URL** `https://calendly.com/mambaservicios/reunion` — must be replaced with the client's real Calendly URL in two places: the `CALENDLY_URL` constant at the top of `script.js` AND the `data-url` attribute of `.calendly-inline-widget` in `index.html`
+Each service card includes a `.service-tags` list with the specific keywords the client wants to rank for. This is intentional — all tags must stay as real, visible, server-rendered text (not hidden, not injected via JS). Current tags:
+
+- **Impermeabilización**: Impermeabilización, Filtraciones, Cubiertas y terrazas, Medianeras, Trabajos en altura
+- **Limpieza de tanques**: Limpieza de tanques, Desinfección sanitaria, Tanques de agua potable, Edificios y consorcios
+- **Mantenimiento**: Albañilería, Plomería, Electricidad, Pintura
+- **Limpieza final de obra e integral**: Limpieza final de obra, Limpieza integral de empresas y negocios, Limpieza y desinfección de alfombras y tapizados
+
+Service card numbering (01–04) was intentionally removed — numbers waste visual space that the client wants dedicated to keywords.
+
+## Third-party integrations
 
 **Google Reviews** — `#resenas` section mimics a Google review block (branded badge, stars, review cards). No live API; review texts are static. Two CTAs link to Google Maps (`https://www.google.com/maps/search/?api=1&query=Mamba+Servicios`) — replace with the client's real Google Business Profile URL (ideally a `g.page/r/...` link that opens the "write a review" flow).
 
@@ -58,6 +63,8 @@ Dark theme, professional and minimalist — per client brief:
 
 Until files exist, the poster shows and playback fails silently — acceptable as a handoff state.
 
+Note: Calendly was explored but discarded by the client. Do not reintroduce it without explicit instruction.
+
 ## Sponsor / ad spaces
 
 Two areas designed to be monetized or used for partners:
@@ -68,18 +75,18 @@ Placeholder content uses `Sponsor 01…05` and `Logo 01…03`. Replace with real
 
 ## Key constraints
 
-- **WhatsApp and Calendly are both primary conversion channels** — they coexist. WhatsApp for quick consults, Calendly for scheduled meetings. Do not remove one without discussing with the client.
+- **WhatsApp is the single conversion channel** — all primary CTAs ("Agendar visita", final CTA, floating bubble, service card links) point to `https://wa.me/5491100000000` with context-specific prefilled messages. Do not introduce scheduling tools (Calendly, etc.) without client approval.
 - **Spanish (es_AR)** — all copy must remain in Argentine Spanish.
-- **No JS framework** — keep vanilla JS. Do not introduce npm, bundlers, or libraries. Calendly is a script embed, not a framework dependency.
+- **No JS framework** — keep vanilla JS. Do not introduce npm, bundlers, or libraries.
 - **Accessibility** — semantic HTML and ARIA attributes are intentional; preserve them when editing.
 - **Dark professional/minimalist aesthetic** — the palette is black/silver/gray with white as a sparingly-used accent. Avoid reintroducing vivid brand colors (teal, amber) unless explicitly requested.
+- **SEO keywords are load-bearing copy** — when editing service cards, keep the `.service-tags` list present and avoid rewriting the exact keywords; the client chose them deliberately for organic search.
 
 ## Placeholders the client must replace
 
 1. WhatsApp number `5491100000000` (throughout `index.html`)
-2. `CALENDLY_URL` in `script.js` + `data-url` on the inline Calendly widget in `index.html`
-3. Google Maps link (`https://www.google.com/maps/search/?api=1&query=Mamba+Servicios`) → real Google Business Profile URL
-4. Sponsor slots/cards content and logos
-5. Real review texts (currently uses the two existing testimonials + one placeholder)
-6. Video files in `videos/`
-7. Social links in footer (Instagram, LinkedIn, Facebook) currently go to platform homepages
+2. Google Maps link (`https://www.google.com/maps/search/?api=1&query=Mamba+Servicios`) → real Google Business Profile URL
+3. Sponsor slots/cards content and logos
+4. Real review texts (currently uses the two existing testimonials + one placeholder)
+5. Video files in `videos/`
+6. Social links in footer (Instagram, LinkedIn, Facebook) currently go to platform homepages

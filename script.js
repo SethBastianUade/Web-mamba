@@ -1,6 +1,3 @@
-// URL central de Calendly — reemplazar por la real del cliente.
-const CALENDLY_URL = "https://calendly.com/mambaservicios/reunion";
-
 const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
@@ -8,7 +5,6 @@ const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
 const revealItems = document.querySelectorAll(
   ".service-card, .advantage-card, .project-card, .logo-card, .review-card, .sponsor-card, .final-cta-box, .video-frame"
 );
-const calendlyTriggers = document.querySelectorAll("[data-calendly]");
 const yearTarget = document.getElementById("year");
 
 const closeMenu = () => {
@@ -42,17 +38,6 @@ const updateHeaderState = () => {
 
 updateHeaderState();
 window.addEventListener("scroll", updateHeaderState, { passive: true });
-
-// Calendly popup trigger: cualquier elemento con [data-calendly] abre el modal.
-calendlyTriggers.forEach((trigger) => {
-  trigger.addEventListener("click", (event) => {
-    if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
-      event.preventDefault();
-      window.Calendly.initPopupWidget({ url: CALENDLY_URL });
-    }
-    // Si Calendly aún no cargó, el enlace hace fallback al href (#contacto).
-  });
-});
 
 if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("reveal"));
