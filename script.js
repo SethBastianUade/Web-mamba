@@ -3,7 +3,7 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
 const revealItems = document.querySelectorAll(
-  ".service-card, .advantage-card, .project-card, .logo-card, .review-card, .sponsor-card, .final-cta-box, .video-frame"
+  ".service-card, .advantage-card, .project-card, .logo-card, .review-card, .sponsor-card, .final-cta-box, .video-frame, .plan-card"
 );
 const yearTarget = document.getElementById("year");
 
